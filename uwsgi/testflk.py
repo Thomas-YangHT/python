@@ -132,27 +132,21 @@ def query():
     count=cur.execute(sql)
     ret+= 'there has %s rows record.' % (count)
     ret+=ClassName
-    if count != 0 :
-        result=cur.fetchall()
 
-    #for row in result :
-    #    for i in row :
-    #        ret+= "%s" % i
-        #   if type(x) != None:
-        #       content+=str(x)+';'
-        #   else:
-        #       content+='empty'+';'
-                
-        #index = cur.description
-        #result = []
-        #for res in cur.fetchall():
-        #row = {}
-        #for i in range(len(index)-1):
-        #    row[index[i][0]] = res[i]
-        #    result.append(row)
-   #     conn.commit()
-   #     cur.close()
-   #     conn.close()
+    index = cur.description
+    result = []
+    row = {}
+    for res in cur.fetchall():
+        for i in range(len(index)-1):
+            row[index[i][0]] = res[i]
+        result.append(row)
+    for key in row :
+        ret+=key+':'+"%s" % row[key]
+    #print result
+    conn.commit()
+    cur.close()
+    conn.close()
+
    # except MySQLdb.Error,e:
    #     ret= "Mysql Error %d: %s" % (e.args[0], e.args[1])
     content=text_content+ret

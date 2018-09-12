@@ -102,23 +102,6 @@ text_content = '''
    <input class='shiny-blue' type='submit' name='Submit' value='提交' />
  </form>
 '''
-
-@app.route('/student', methods=['GET', 'POST'])
-def home():
-    return '<h1>Home</h1>'
-
-	
-@app.route('/student/chengji', methods=['GET'])
-def signin_form():
-    return text_content
-
-			  
-@app.route('/student/query', methods=['POST'])
-def query():
-    ClassName=request.form['ClassName']
-    TestLevel=request.form['TestLevel']
-
-
 def GET_DATA():
     try:
     	conn=MySQLdb.connect(host='172.16.254.110',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
@@ -156,6 +139,26 @@ def GET_DATA():
         return result
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
+		
+@app.route('/student', methods=['GET', 'POST'])
+def home():
+    return '<h1>Home</h1>'
+
+	
+@app.route('/student/chengji', methods=['GET'])
+def chengji_form():
+    return text_content
+
+			  
+@app.route('/student/query', methods=['POST'])
+def query():
+    ClassName=request.form['ClassName']
+    TestLevel=request.form['TestLevel']
+	chengji_form()
+	GET_DATA()
+
+
+
 
 if __name__ == '__main__':
     app.run()

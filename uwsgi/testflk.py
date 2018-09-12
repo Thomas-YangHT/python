@@ -21,21 +21,21 @@ text_content = '''
 
  <script type='text/javascript'> 
  function altRows(id){           
- 	if(document.getElementsByTagName){  		
- 		var table = document.getElementById(id);  
- 		var rows = table.getElementsByTagName(\"tr\"); 		 
- 		for(i = 0; i < rows.length; i++){          
- 			if(i % 2 == 0){                        
- 				rows[i].className = 'evenrowcolor';
- 			}else{                                 
- 				rows[i].className = 'oddrowcolor'; 
- 			}      
- 		}          
- 	}              
+    if(document.getElementsByTagName){          
+        var table = document.getElementById(id);  
+        var rows = table.getElementsByTagName(\"tr\");       
+        for(i = 0; i < rows.length; i++){          
+            if(i % 2 == 0){                        
+                rows[i].className = 'evenrowcolor';
+            }else{                                 
+                rows[i].className = 'oddrowcolor'; 
+            }      
+        }          
+    }              
  }               
 
  window.onload=function(){ 
- 	altRows('alternatecolor');
+    altRows('alternatecolor');
  } 
  </script>
 
@@ -43,31 +43,31 @@ text_content = '''
 <!-- CSS goes in the document HEAD or added to your external stylesheet --> 
  <style type='text/css'> 
  table.altrowstable {
- 	font-family: verdana,arial,sans-serif;
- 	font-size:11px;
- 	color:#333333;
- 	border-width: 1px;
- 	border-color: #a9c6c9;
- 	border-collapse: collapse;
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #a9c6c9;
+    border-collapse: collapse;
  }
  table.altrowstable th {
- 	border-width: 1px;
- 	padding: 8px;
- 	border-style: solid;
- 	border-color: #a9c6c9;
- 	background-color:#ccd4d4;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+    background-color:#ccd4d4;
  }
  table.altrowstable td {
- 	border-width: 1px;
- 	padding: 8px;
- 	border-style: solid;
- 	border-color: #a9c6c9;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
  }
  .oddrowcolor{
- 	background-color:#d4e3e5;
+    background-color:#d4e3e5;
  }
  .evenrowcolor{
- /*	background-color:#c3dde0; */
+ /* background-color:#c3dde0; */
  background-color:#ffffff;
  }
  .shiny-blue {
@@ -104,27 +104,27 @@ text_content = '''
 '''
 def GET_DATA():
     try:
-    	conn=MySQLdb.connect(host='172.16.254.110',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
-    	cur=conn.cursor()
+        conn=MySQLdb.connect(host='172.16.254.110',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
+        cur=conn.cursor()
         sql1=("select a.name,b.* from base as a,chengji as b where a.stud_no=b.stud_no and a.stud_no like '%s\%'" % ClassName)
         sql=("select * from base order by stud_no")
         if TestLevel==1 :
             sql=sql1
-		
-    	print sql
-    	count=cur.execute(sql)
-    	print 'there has %s rows record' % count
-    	if count != 0 :
-    		result=cur.fetchall()
+        
+        print sql
+        count=cur.execute(sql)
+        print 'there has %s rows record' % count
+        if count != 0 :
+            result=cur.fetchall()
 
-    	for row in result:
-		    for i in row:
-			    print "%s" % i
-    	#	if type(x) != None:
-    	#		content+=str(x)+';'
-    	#	else:
-    	#		content+='empty'+';'
-				
+        for row in result:
+            for i in row:
+                print "%s" % i
+        #   if type(x) != None:
+        #       content+=str(x)+';'
+        #   else:
+        #       content+='empty'+';'
+                
         #index = cur.description
         #result = []
         #for res in cur.fetchall():
@@ -133,31 +133,32 @@ def GET_DATA():
         #    row[index[i][0]] = res[i]
         #    result.append(row)
     
-    	conn.commit()
-    	cur.close()
-    	conn.close()
+        conn.commit()
+        cur.close()
+        conn.close()
         return result
     except MySQLdb.Error,e:
         print "Mysql Error %d: %s" % (e.args[0], e.args[1])
-		
+        
 @app.route('/student', methods=['GET', 'POST'])
 def home():
     return '<h1>Home</h1>'
 
-	
+    
 @app.route('/student/chengji', methods=['GET'])
 def chengji_form():
     return text_content
 
-			  
+              
 @app.route('/student/query', methods=['POST'])
 def query():
     ClassName=request.form['ClassName']
     TestLevel=request.form['TestLevel']
-    print "ClassName:%s" % ClassName
-    res1=chengji_form()
-    res2=GET_DATA()
-    return res1+res2
+    return '<h1>Home</h1>'
+    #print "ClassName:%s" % ClassName
+    #res1=chengji_form()
+    #res2=GET_DATA()
+    #return res1+res2
 
 
 

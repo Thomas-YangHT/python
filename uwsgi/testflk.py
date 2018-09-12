@@ -155,8 +155,9 @@ def query():
     ClassName=request.form['ClassName']
     TestLevel=request.form['TestLevel']
 	print "ClassName:%s" % ClassName
-    chengji_form()
-    #GET_DATA()
+    res1=chengji_form()
+    res2=GET_DATA()
+	return res1+res2
 
 
 

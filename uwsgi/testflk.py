@@ -94,7 +94,7 @@ text_content = '''
  </style>
  </head>
 <body style='margin:0 auto;text-align:center;'>
-</br>";
+</br>
  <form id='form' name='form' method='post' action='/student/query'>
  班级: <input type='text' name='ClassName' id='ClassName' value='1807'>
  项目: <input type='text' name='TestLevel' id='TestLevel' value='1'>
@@ -129,7 +129,6 @@ def query():
         ret+= 'there has %s rows record' % count
         if count != 0 :
             result=cur.fetchall()
-
         for row in result:
             for i in row:
                 ret+= "%s" % i

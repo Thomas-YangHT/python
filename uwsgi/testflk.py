@@ -157,7 +157,7 @@ def query():
 	print "ClassName:%s" % ClassName
     res1=chengji_form()
     res2=GET_DATA()
-	return res1+res2
+    return res1+res2
 
 
 

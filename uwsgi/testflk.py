@@ -110,7 +110,7 @@ def home():
 	
 @app.route('/student/chengji', methods=['GET'])
 def signin_form():
-    return $text_content
+    return text_content
 
 			  
 @app.route('/student/query', methods=['POST'])

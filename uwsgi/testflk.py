@@ -117,21 +117,27 @@ def chengji_form():
 def query():
     ClassName=request.form['ClassName']
     TestLevel=request.form['TestLevel']
-    try:
-        conn=MySQLdb.connect(host='172.16.254.110',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
-        cur=conn.cursor()
-        sql1=("select a.name,b.* from base as a,chengji as b where a.stud_no=b.stud_no and a.stud_no like '%s\%'" % ClassName)
-        sql=("select * from base order by stud_no")
-        if TestLevel==1 :
-            sql=sql1
-        ret=sql
-        count=cur.execute(sql)
-        ret+= 'there has %s rows record' % count
-        if count != 0 :
-            result=cur.fetchall()
-        for row in result:
-            for i in row:
-                ret+= "%s" % i
+    if request.form['ClassName'] == '' : 
+        ClassName="1807"
+    if request.form['TestLevel'] == '' :
+        TestLevel=1
+  #  try:
+    conn=MySQLdb.connect(host='172.16.254.110',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
+    cur=conn.cursor()
+    sql1=("select a.name,b.* from base as a,chengji as b where a.stud_no=b.stud_no and a.stud_no like '"+ClassName+"%'")
+    sql=("select * from base order by stud_no")
+    if TestLevel == 1 :
+        sql=sql1
+    ret=sql
+    count=cur.execute(sql)
+    ret+= 'there has %s rows record.' % (count)
+    ret+=ClassName
+    if count != 0 :
+        result=cur.fetchall()
+
+    #for row in result :
+    #    for i in row :
+    #        ret+= "%s" % i
         #   if type(x) != None:
         #       content+=str(x)+';'
         #   else:
@@ -144,17 +150,14 @@ def query():
         #for i in range(len(index)-1):
         #    row[index[i][0]] = res[i]
         #    result.append(row)
-        conn.commit()
-        cur.close()
-        conn.close()
-        text_content+=ret
-    except MySQLdb.Error,e:
-        return "Mysql Error %d: %s" % (e.args[0], e.args[1])
-    #return '<h1>Home</h1>'
-    #print "ClassName:%s" % ClassName
-    #res1=chengji_form()
-    #res2=GET_DATA()
-    return text_content
+   #     conn.commit()
+   #     cur.close()
+   #     conn.close()
+   # except MySQLdb.Error,e:
+   #     ret= "Mysql Error %d: %s" % (e.args[0], e.args[1])
+    content=text_content+ret
+    return content
+
 
 
 

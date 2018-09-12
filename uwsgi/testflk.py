@@ -154,8 +154,8 @@ def chengji_form():
 def query():
     ClassName=request.form['ClassName']
     TestLevel=request.form['TestLevel']
-	chengji_form()
-	GET_DATA()
+    chengji_form()
+    GET_DATA()
 
 
 

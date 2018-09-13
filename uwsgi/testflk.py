@@ -101,7 +101,7 @@ text_content = '''
  </style>
  </head>
 <body style='margin:0 auto;text-align:center;'>
-</br>";
+</br>
  <form id='form' name='form' method='post' action='/student/query'>
  班级: <input type='text' name='ClassName' id='ClassName' value='1807'>
  项目: <input type='text' name='TestLevel' id='TestLevel' value='1'>

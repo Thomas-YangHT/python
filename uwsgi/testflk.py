@@ -21,11 +21,12 @@ text_content = '''
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <title>CHENGJI Query</title>
+<!--
   <link rel='stylesheet' href='css/jquery-ui.css'>
   <link rel='stylesheet' href='css/style.css'>
   <script src='js/jquery-1.12.4.js'></script>
   <script src='js/jquery-ui.js'></script>
-
+-->
  <script type='text/javascript'> 
  function altRows(id){           
     if(document.getElementsByTagName){          
@@ -124,23 +125,27 @@ def chengji_form():
 def query():
     ClassName=request.form['ClassName']
     TestLevel=request.form['TestLevel']
-    #if ClassName=='': 
-#    ClassName="1807"
-    #if TestLevel=='':
-#    TestLevel=1
+    if ClassName=='': 
+        ClassName="1807"
+    if TestLevel=='':
+        TestLevel='1'
   #  try:
-    print TestLevel
+  #测试代码
+  #print TestLevel
     conn=MySQLdb.connect(host='172.16.254.110',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
     cur=conn.cursor()
+	#查询成绩的SQL
     sql1=("select a.name,b.* from base as a,chengji as b where a.stud_no=b.stud_no and a.stud_no like '"+ClassName+"%'")
+	#查询基本信息的SQL
     sql=("select * from base order by stud_no")
     if TestLevel == '1' :
         sql=sql1
     ret=sql
     count=cur.execute(sql)
-    #ret+= 'there has %s rows record.' % (count)
-    #ret+=ClassName+':'+TestLevel
-
+  #测试代码
+  #  ret+= 'there has %s rows record.' % (count)
+  #  ret+=ClassName+':'+TestLevel
+  #取得所有行，不含列名
   #  result1=[]
   #  row1=[]
   #  if count != 0 :
@@ -150,27 +155,39 @@ def query():
   #      for i in row1 :
   #          ret+= " %s " % i
   #  print ret
+    #字段名在index中
     index = cur.description
     result = []
-    row = {}
+	#所有记录行在result中
     result=cur.fetchall()
+  #测试代码
+  #取得所有行列，存入字典
+  #  row = {}
   #  for res in cur.fetchall():
   #      for i in range(len(index)-1):
   #          row[index[i][0]] = res[i]
   #      result.append(row)
   #  for key in row :
   #      ret+=key+':'+"%s," % row[key]
+  
+    #表格输出到ret字符串----------------
+    #表头
     ret+= "</br><div style='margin:0 auto;text-align:center;font-size:22px;font-family:SimHei;'>欢迎您使用数据查询，数据如下：(共计"+str(count)+"行"+str(len(index))+"列)</div></br>\n"
     ret+= "<table class='altrowstable' id='alternatecolor' style='margin:0 auto;align:center;'> <tr>\n"
+    #列，字段名称
     for i in range(len(index)):
         ret+="<th>"+index[i][0]+"</th>\n"
     ret+="</tr>\n"
+    #记录行输出
     for res in result:
         ret+="<tr>\n"
         for i in res:
             ret+= "<td>%s</td>\n" % i
         ret+="<tr>\n"
+    #表结束
     ret+= "</table>\n"
+	#-------------------------
+	#关闭连接
     conn.commit()
     cur.close()
     conn.close()

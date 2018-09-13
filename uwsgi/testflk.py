@@ -22,12 +22,12 @@ text_content = '''
   <meta charset='utf-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
   <title>CHENGJI Query</title>
-<!--
-  <link rel='stylesheet' href='css/jquery-ui.css'>
-  <link rel='stylesheet' href='css/style.css'>
-  <script src='js/jquery-1.12.4.js'></script>
-  <script src='js/jquery-ui.js'></script>
--->
+
+  <link rel='stylesheet' href='/static/css/jquery-ui.css'>
+  <link rel='stylesheet' href='/static/css/style.css'>
+  <script src='/static/js/jquery-1.12.4.js'></script>
+  <script src='/static/js/jquery-ui.js'></script>
+
  <script type='text/javascript'> 
  function altRows(id){           
     if(document.getElementsByTagName){          

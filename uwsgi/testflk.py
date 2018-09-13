@@ -138,8 +138,8 @@ def query():
         sql=sql1
     ret=sql
     count=cur.execute(sql)
-    ret+= 'there has %s rows record.' % (count)
-    ret+=ClassName+':'+TestLevel
+    #ret+= 'there has %s rows record.' % (count)
+    #ret+=ClassName+':'+TestLevel
 
   #  result1=[]
   #  row1=[]

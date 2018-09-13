@@ -5,14 +5,15 @@ from flask import request
 import MySQLdb
 import sys,urllib,urllib2
 import commands
+#避免译码问题
 if sys.getdefaultencoding() != 'utf-8':
     reload(sys)
     sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
+#以下三行打开uwsgi debug模式
 from werkzeug.debug import DebuggedApplication
 app.wsgi_app = DebuggedApplication(app.wsgi_app, True)
-
 app.debug = True
 
 text_content = '''
@@ -110,17 +111,18 @@ text_content = '''
    <input class='shiny-blue' type='submit' name='Submit' value='提交' />
  </form>
 '''
-       
+
+#测试用       
 @app.route('/student', methods=['GET', 'POST'])
 def home():
     return '<h1>Home</h1>'
 
-    
+#输出表单form    
 @app.route('/student/chengji', methods=['GET'])
 def chengji_form():
     return text_content
 
-              
+#处理表单提交信息，查询数据库，输出结果 
 @app.route('/student/query', methods=['POST'])
 def query():
     ClassName=request.form['ClassName']

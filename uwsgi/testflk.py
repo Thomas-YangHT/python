@@ -185,7 +185,7 @@ def query():
         ret+="<tr>\n"
         for i in res:
             ret+= "<td>%s</td>\n" % i
-        ret+="<tr>\n"
+        ret+="</tr>\n"
     #表结束
     ret+= "</table>\n"
 	#-------------------------

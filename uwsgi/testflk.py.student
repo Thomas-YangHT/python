@@ -5,15 +5,8 @@ from flask import request
 import MySQLdb
 import sys,urllib,urllib2
 import commands
-if sys.getdefaultencoding() != 'utf-8':
-    reload(sys)
-    sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
-from werkzeug.debug import DebuggedApplication
-app.wsgi_app = DebuggedApplication(app.wsgi_app, True)
-
-app.debug = True
 
 text_content = '''
  <html>  
@@ -124,14 +117,14 @@ def chengji_form():
 def query():
     ClassName=request.form['ClassName']
     TestLevel=request.form['TestLevel']
-    #if ClassName=='': 
-    ClassName="1807"
-    #if TestLevel=='':
-    TestLevel=1
+    if ClassName=='': 
+        ClassName="1807"
+    if TestLevel=='':
+        TestLevel=1
   #  try:
     conn=MySQLdb.connect(host='172.16.254.110',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
     cur=conn.cursor()
-    sql1=("select a.name,b.* from base as a,chengji as b where a.stud_no=b.stud_no and a.stud_no like '"+ClassName+"%'")
+    sql1=i("select a.name,b.* from base as a,chengji as b where a.stud_no=b.stud_no and a.stud_no like '"+ClassName+"%'")
     sql=("select * from base order by stud_no")
     if TestLevel == 1 :
         sql=sql1
@@ -139,34 +132,37 @@ def query():
     count=cur.execute(sql)
     ret+= 'there has %s rows record.' % (count)
     ret+=ClassName
-
-    result1=[]
-    row1=[]
     if count != 0 :
-        result1=cur.fetchall()
-    for row1 in result1 :
-        #ret2+=row1
-        for i in row1 :
-            ret+= " %s " % i
-    #print ret
-#    index = cur.description
-#    result = []
-#    row = {}
-#    for res in cur.fetchall():
-#        for i in range(len(index)-1):
-#            row[index[i][0]] = res[i]
-#        result.append(row)
-#    for key in row :
-#        ret+=key+':'+"%s," % row[key]
+        result=cur.fetchall()
 
-    conn.commit()
-    cur.close()
-    conn.close()
+    #for row in result :
+    #    for i in row :
+    #        ret+= "%s" % i
+        #   if type(x) != None:
+        #       content+=str(x)+';'
+        #   else:
+        #       content+='empty'+';'
+                
+        #index = cur.description
+        #result = []
+        #for res in cur.fetchall():
+        #row = {}
+        #for i in range(len(index)-1):
+        #    row[index[i][0]] = res[i]
+        #    result.append(row)
+   #     conn.commit()
+   #     cur.close()
+   #     conn.close()
    # except MySQLdb.Error,e:
    #     ret= "Mysql Error %d: %s" % (e.args[0], e.args[1])
     content=text_content+ret
+    #return '<h1>Home</h1>'
+    #print "ClassName:%s" % ClassName
+    #res1=chengji_form()
+    #res2=GET_DATA()
     return content
 
 
 if __name__ == '__main__':
     app.run()
+   # app.run("0.0.0.0",port=5000)

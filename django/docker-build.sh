@@ -1,1 +1,1 @@
-docker build --rm -t python:latest -f ./dockfile.django .
+docker build  -t python:latest -f ./dockfile.django .

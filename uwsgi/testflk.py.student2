@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 from flask import Flask
 from flask import request
-from flask import render_template
 import MySQLdb
 import sys,urllib,urllib2
 import commands
@@ -197,13 +196,7 @@ def query():
    # except MySQLdb.Error,e:
    #     ret= "Mysql Error %d: %s" % (e.args[0], e.args[1])
     content=text_content+ret
-    context = {}
-    context['sql']=sql
-    context['count']=count
-    context['index']=index
-    context['result']=result
-    return render_template("student.html",sql=sql,count=count,index=index,result=result)
-   #    return content
+    return content
 
 
 if __name__ == '__main__':

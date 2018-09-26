@@ -1,1 +1,1 @@
-docker build --rm -t python:latest -f ./dockfile.python .
+docker build --rm -t python:latest -f ./dockerfile.python .

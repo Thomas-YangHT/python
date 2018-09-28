@@ -1,17 +1,17 @@
-image: docker:stable
+stages:
+  - deploy
 
-variables:
-  DOCKER_DRIVER: overlay2
-
-services:
-- docker:dind
 
 before_script:
-- docker info
+  - docker info
 
-build:
- stage: build  
- script:    
- - docker build -t 192.168.100.222:5000/python:v1 -f ./dockerfile.python .    
- - docker push 192.168.100.222:5000/python:v1
-
+# 部署测试服务器
+deploy_dev:
+  stage: deploy
+  tags:
+  - shell
+  only:
+  - master
+  script:
+  - docker build -t 192.168.100.222:5000/python -f ./dockerfile.python .    
+  - docker push 192.168.100.222:5000/python

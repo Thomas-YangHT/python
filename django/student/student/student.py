@@ -99,7 +99,7 @@ text_content = '''
  </head>
 <body style='margin:0 auto;text-align:center;'>
 </br>
- <form id='form' name='form' method='post' action='/student/query'>
+ <form id='form' name='form' method='get' action='/student/query'>
  班级: <input type='text' name='ClassName' id='ClassName' value='1807'>
  项目: <input type='text' name='TestLevel' id='TestLevel' value='1'>
  0-学生基本信息；1-计算机基础成绩；

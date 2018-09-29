@@ -4,6 +4,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 import MySQLdb
 import sys,urllib,urllib2
@@ -110,17 +112,15 @@ text_content = '''
 '''
 
 #测试用       
-#@app.route('/student', methods=['GET', 'POST'])
 def home(request):
     return  HttpResponse('<h1>Home</h1>')
 
 #输出表单form    
-#@app.route('/student/chengji', methods=['GET'])
 def chengji_form(request):
     return  HttpResponse(text_content)
 
 #处理表单提交信息，查询数据库，输出结果 
-#@app.route('/student/query', methods=['POST'])
+@csrf_exempt
 def query(request):
     ClassName=request.POST['ClassName']
     TestLevel=request.POST['TestLevel']

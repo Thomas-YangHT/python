@@ -1,8 +1,8 @@
-docker run --name uwsgi \
--v /opt/uwsgi:/uwsgi \
+docker run --name django \
+-v /opt/python/django:/uwsgi \
 --restart=always \
---dns=192.168.32.1 \
+--dns=192.168.100.222 \
 -e TZ='Asia/Shanghai' \
 -p 8102:80 \
--d python \
+-d 192.168.100.222:5000/python:django \
 sh /uwsgi/startpython.sh

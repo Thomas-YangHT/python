@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-#from flask import Flask
-#from flask import request
+
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 import MySQLdb
@@ -12,7 +11,6 @@ if sys.getdefaultencoding() != 'utf-8':
     reload(sys)
     sys.setdefaultencoding('utf-8')
 
-app = Flask(__name__)
 #以下三行打开uwsgi debug模式
 from werkzeug.debug import DebuggedApplication
 app.wsgi_app = DebuggedApplication(app.wsgi_app, True)

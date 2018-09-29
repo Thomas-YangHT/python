@@ -116,7 +116,7 @@ text_content = '''
 
 #测试用       
 #@app.route('/student', methods=['GET', 'POST'])
-def home():
+def home(request):
     return  HttpResponse('<h1>Home</h1>')
 
 #输出表单form    
@@ -126,7 +126,7 @@ def chengji_form(request):
 
 #处理表单提交信息，查询数据库，输出结果 
 #@app.route('/student/query', methods=['POST'])
-def query():
+def query(request):
     ClassName=request.GET['ClassName']
     TestLevel=request.GET['TestLevel']
     if ClassName=='': 

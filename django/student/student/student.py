@@ -176,5 +176,5 @@ def query(request):
     context['index']=index
     context['result']=result
     #return render_template("student.html",sql=sql,count=count,index=index,result=result)
-    return render_to_response('student.html',context)
+    return render(request,'student.html',context)
 

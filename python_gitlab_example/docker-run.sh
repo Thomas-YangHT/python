@@ -1,3 +1,4 @@
+docker rm `docker stop uwsgi`
 docker run --name uwsgi \
 --restart=always \
 --dns=192.168.30.1 \

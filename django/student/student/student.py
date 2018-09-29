@@ -11,11 +11,6 @@ if sys.getdefaultencoding() != 'utf-8':
     reload(sys)
     sys.setdefaultencoding('utf-8')
 
-#以下三行打开uwsgi debug模式
-from werkzeug.debug import DebuggedApplication
-app.wsgi_app = DebuggedApplication(app.wsgi_app, True)
-app.debug = True
-
 text_content = '''
  <html>  
 <head>

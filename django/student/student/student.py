@@ -1,7 +1,9 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-from flask import Flask
-from flask import request
+#from flask import Flask
+#from flask import request
+from django.http import HttpResponse
+from django.shortcuts import render_to_response
 import MySQLdb
 import sys,urllib,urllib2
 import commands
@@ -113,20 +115,20 @@ text_content = '''
 '''
 
 #测试用       
-@app.route('/student', methods=['GET', 'POST'])
+#@app.route('/student', methods=['GET', 'POST'])
 def home():
-    return '<h1>Home</h1>'
+    return  HttpResponse('<h1>Home</h1>')
 
 #输出表单form    
-@app.route('/student/chengji', methods=['GET'])
-def chengji_form():
-    return text_content
+#@app.route('/student/chengji', methods=['GET'])
+def chengji_form(request):
+    return  HttpResponse(text_content)
 
 #处理表单提交信息，查询数据库，输出结果 
-@app.route('/student/query', methods=['POST'])
+#@app.route('/student/query', methods=['POST'])
 def query():
-    ClassName=request.form['ClassName']
-    TestLevel=request.form['TestLevel']
+    ClassName=request.GET['ClassName']
+    TestLevel=request.GET['TestLevel']
     if ClassName=='': 
         ClassName="1807"
     if TestLevel=='':
@@ -144,34 +146,13 @@ def query():
         sql=sql1
     ret=sql
     count=cur.execute(sql)
-  #测试代码
-  #  ret+= 'there has %s rows record.' % (count)
-  #  ret+=ClassName+':'+TestLevel
-  #取得所有行，不含列名
-  #  result1=[]
-  #  row1=[]
-  #  if count != 0 :
-  #      result1=cur.fetchall()
-  #  for row1 in result1 :
-  #      #ret2+=row1
-  #      for i in row1 :
-  #          ret+= " %s " % i
-  #  print ret
+
     #字段名在index中
     index = cur.description
     result = []
 	#所有记录行在result中
     result=cur.fetchall()
-  #测试代码
-  #取得所有行列，存入字典
-  #  row = {}
-  #  for res in cur.fetchall():
-  #      for i in range(len(index)-1):
-  #          row[index[i][0]] = res[i]
-  #      result.append(row)
-  #  for key in row :
-  #      ret+=key+':'+"%s," % row[key]
-  
+    
     #表格输出到ret字符串----------------
     #表头
     ret+= "</br><div style='margin:0 auto;text-align:center;font-size:22px;font-family:SimHei;'>欢迎您使用数据查询，数据如下：(共计"+str(count)+"行"+str(len(index))+"列)</div></br>\n"
@@ -196,8 +177,11 @@ def query():
    # except MySQLdb.Error,e:
    #     ret= "Mysql Error %d: %s" % (e.args[0], e.args[1])
     content=text_content+ret
-    return content
+    context = {}
+    context['sql']=sql
+    context['count']=count
+    context['index']=index
+    context['result']=result
+    #return render_template("student.html",sql=sql,count=count,index=index,result=result)
+    return render_to_response('student.html',context)
 
-
-if __name__ == '__main__':
-    app.run()

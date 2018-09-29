@@ -6,5 +6,8 @@ from . import view
  
 urlpatterns = [
     url(r'^hello$', view.hello),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^student/chengji$', student.chengji_form),
+    url(r'^student/query$', student.query),
+    url(r'^student/', student.home),
+
 ]

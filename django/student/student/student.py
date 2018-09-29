@@ -99,7 +99,7 @@ text_content = '''
  </head>
 <body style='margin:0 auto;text-align:center;'>
 </br>
- <form id='form' name='form' method='get' action='/student/query'>
+ <form id='form' name='form' method='post' action='/student/query'>
  班级: <input type='text' name='ClassName' id='ClassName' value='1807'>
  项目: <input type='text' name='TestLevel' id='TestLevel' value='1'>
  0-学生基本信息；1-计算机基础成绩；
@@ -120,8 +120,8 @@ def chengji_form(request):
 #处理表单提交信息，查询数据库，输出结果 
 #@app.route('/student/query', methods=['POST'])
 def query(request):
-    ClassName=request.GET['ClassName']
-    TestLevel=request.GET['TestLevel']
+    ClassName=request.POST['ClassName']
+    TestLevel=request.POST['TestLevel']
     if ClassName=='': 
         ClassName="1807"
     if TestLevel=='':
@@ -129,7 +129,7 @@ def query(request):
   #  try:
   #测试代码
   #print TestLevel
-    conn=MySQLdb.connect(host='172.16.254.110',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
+    conn=MySQLdb.connect(host='192.168.100.222',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
     cur=conn.cursor()
 	#查询成绩的SQL
     sql1=("select a.name,b.* from base as a,chengji as b where a.stud_no=b.stud_no and a.stud_no like '"+ClassName+"%'")

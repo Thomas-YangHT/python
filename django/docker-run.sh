@@ -1,5 +1,5 @@
+docker rm `docker stop django`
 docker run --name django \
--v /opt/python/django:/uwsgi \
 --restart=always \
 --dns=192.168.100.222 \
 -e TZ='Asia/Shanghai' \

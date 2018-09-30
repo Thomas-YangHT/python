@@ -1,5 +1,5 @@
 #python-nginx-uwsgi
-#docker build --rm -t python:latest -f ./dockfile.python .
+#docker build --rm -t python:latest -f ./dockerfile.python .
 #USAGE:   
 #   docker run --name py -it -d python:latest
 #   docker exec -it py bash
@@ -9,7 +9,8 @@ FROM centos:latest
 MAINTAINER Thomas.Yang
 #RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm && \
 RUN curl https://raw.githubusercontent.com/Thomas-YangHT/shell/master/yum-repo2.sh |sh && \
- yum -y install git wget net-tools nginx python-django uwsgi uwsgi-plugin-python2 MySQL-python python2-PyMySQL && \
+ yum -y install https://repos.fedorapeople.org/repos/openstack/openstack-ocata/rdo-release-ocata-3.noarch.rpm && \
+ yum -y install git wget net-tools nginx python-django python-jinja2 uwsgi uwsgi-plugin-python2 MySQL-python python2-PyMySQL && \
 #修改时区 
  rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 #安装中文支持 

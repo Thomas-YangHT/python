@@ -27,5 +27,5 @@ RUN curl https://raw.githubusercontent.com/Thomas-YangHT/shell/master/yum-repo2.
 # ENV LC_ALL zh_CN.utf8
 
 #EXPOSE 80 443 
-CMD ["/usr/bin/bash"]
+CMD ["/uwsgi/startpython.sh"]
 

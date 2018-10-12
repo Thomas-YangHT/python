@@ -1,0 +1,25 @@
+image: docker:stable
+
+variables:
+  DOCKER_DRIVER: overlay2
+#  DOCKER_HOST: tcp://localhost:2375
+
+services:
+- docker:dind
+
+before_script:
+- ls /var/run/
+#- kubectl --help
+- docker info
+- uname -a;ps auxwww
+
+build:
+ stage: build  
+ tags:
+ - shell,kuber
+ script:    
+ - cd /yunwei/django
+ - docker build -t 192.168.31.140:5000/python:django -f ./dockerfile.django .    
+ - docker push 192.168.31.140:5000/python:django
+# - sh ./docker-run.sh
+

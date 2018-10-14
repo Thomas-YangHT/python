@@ -1,4 +1,5 @@
 image: docker:stable
+#image: 192.168.31.140:5000/centos
 
 variables:
   DOCKER_DRIVER: overlay2
@@ -9,7 +10,9 @@ services:
 
 before_script:
 - ls /var/run/
-#- kubectl --help
+- ls /usr/bin/kubectl
+- kubectl help
+- kubectl get pods  
 - docker info
 - uname -a;ps auxwww
 
@@ -19,7 +22,10 @@ build:
  - shell,kuber
  script:    
  - cd /yunwei/django
- - docker build -t 192.168.31.140:5000/python:django -f ./dockerfile.django .    
- - docker push 192.168.31.140:5000/python:django
+ - version=`date +%Y%m%d-%H%M%S`
+ - docker build -t 192.168.31.140:5000/python:v$version -f ./dockerfile.django .  
+ - docker push 192.168.31.140:5000/python:v$version
+ - kubectl set image deployment/student student=192.168.31.140:5000/python:v$version -n default
+#date +%Y%m%d-%H%M%S
 # - sh ./docker-run.sh
 

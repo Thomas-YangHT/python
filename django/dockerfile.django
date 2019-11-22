@@ -16,14 +16,14 @@ RUN yum -y install git wget net-tools nginx  uwsgi uwsgi-plugin-python2 MySQL-py
 #修改时区 
  rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
 #安装中文支持 
- yum -y install kde-l10n-Chinese glibc-common && \
+# yum -y install kde-l10n-Chinese glibc-common && \
 #清yum cache
  yum clean all 
 #copy program
 RUN git clone https://github.com/Thomas-YangHT/python && \
  cd python/django && chmod +x ./startpython.sh 
  COPY . /uwsgi/
-
+RUN ls /uwsgi/
 #配置显示中文 
 # localedef -c -f UTF-8 -i zh_CN zh_CN.utf8 
 #设置环境变量

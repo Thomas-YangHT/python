@@ -9,9 +9,8 @@ FROM centos:7
 MAINTAINER Thomas.Yang
 #RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm && \
 #RUN curl https://raw.githubusercontent.com/Thomas-YangHT/shell/master/yum-repo2.sh |sh && \
-RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm && \
- yum -y install git wget net-tools nginx  uwsgi uwsgi-plugin-python2 MySQL-python python2-PyMySQL && \
- yum -y install https://repos.fedorapeople.org/repos/openstack/openstack-ocata/rdo-release-ocata-3.noarch.rpm && \
+# yum -y install https://repos.fedorapeople.org/repos/openstack/openstack-ocata/rdo-release-ocata-3.noarch.rpm && \
+RUN yum -y install git wget net-tools nginx  uwsgi uwsgi-plugin-python2 MySQL-python python2-PyMySQL && \
  yum -y install python-django python-jinja2 && \
 #修改时区 
  rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \

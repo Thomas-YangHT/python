@@ -131,7 +131,7 @@ def query(request):
   #  try:
   #测试代码
   #print TestLevel
-    conn=MySQLdb.connect(host='192.168.100.222',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
+    conn=MySQLdb.connect(host='192.168.31.140',user='yanght',passwd='yanght',db='students',port=3306,charset='utf8')
     cur=conn.cursor()
 	#查询成绩的SQL
     sql1=("select a.name,b.* from base as a,chengji as b where a.stud_no=b.stud_no and a.stud_no like '"+ClassName+"%'")

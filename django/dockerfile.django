@@ -20,8 +20,8 @@ RUN yum -y install git wget net-tools nginx  uwsgi uwsgi-plugin-python2 MySQL-py
 #清yum cache
  yum clean all 
 #copy program
- RUN chmod +x ./django/startpython.sh
- COPY ./django/* /uwsgi/
+ RUN chmod +x ./startpython.sh
+ COPY . /uwsgi/
 
 
 #配置显示中文 

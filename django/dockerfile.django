@@ -7,7 +7,7 @@
 FROM centos:7
 #FROM 192.168.254.211:5000/centos
 MAINTAINER Thomas.Yang
-#RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm && \
+#RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
 #RUN curl https://raw.githubusercontent.com/Thomas-YangHT/shell/master/yum-repo2.sh |sh && \
 # yum -y install https://repos.fedorapeople.org/repos/openstack/openstack-ocata/rdo-release-ocata-3.noarch.rpm && \
 RUN yum -y install epel-release
@@ -20,8 +20,8 @@ RUN yum -y install git wget net-tools nginx  uwsgi uwsgi-plugin-python2 MySQL-py
 #清yum cache
  yum clean all 
 #copy program
- RUN chmod +x startpython.sh
- COPY . /uwsgi/
+ RUN chmod +x ./django/startpython.sh
+ COPY ./django/* /uwsgi/
 
 
 #配置显示中文 

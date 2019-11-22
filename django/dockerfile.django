@@ -19,8 +19,9 @@ RUN yum -y install git wget net-tools nginx  uwsgi uwsgi-plugin-python2 MySQL-py
 #清yum cache
  yum clean all 
 #copy program
+ RUN chmod +x startpython.sh
  COPY . /uwsgi/
- chmod +x startpython.sh
+
 
 #配置显示中文 
 # localedef -c -f UTF-8 -i zh_CN zh_CN.utf8 

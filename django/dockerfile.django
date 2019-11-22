@@ -21,9 +21,9 @@ RUN yum -y install git wget net-tools nginx  uwsgi uwsgi-plugin-python2 MySQL-py
  yum clean all 
 #copy program
 RUN git clone https://github.com/Thomas-YangHT/python && \
- cd python/django && chmod +x ./startpython.sh 
+ cd python/django 
  COPY . /uwsgi/
-RUN ls /uwsgi/
+RUN  chmod +x /uwsgi/startpython.sh && ls -l /uwsgi/ 
 #配置显示中文 
 # localedef -c -f UTF-8 -i zh_CN zh_CN.utf8 
 #设置环境变量

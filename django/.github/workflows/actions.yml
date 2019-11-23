@@ -1,0 +1,20 @@
+name: Test for actions runner
+
+on: push
+
+jobs:
+  my-job:
+    name: My Job
+    runs-on: [self-hosted, linux]
+    steps:
+    - name: build
+      env:
+        MY_VAR: Hi there! My name is
+        FIRST_NAME: Mona
+        MIDDLE_NAME: The
+        LAST_NAME: Octocat
+      run: |
+        echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME.
+        docker build -t 192.168.100.222:5000/python -f ./dockerfile.python .    
+        docker push 192.168.100.222:5000/python
+        sh ./docker-run.sh

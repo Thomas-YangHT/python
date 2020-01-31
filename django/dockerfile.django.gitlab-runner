@@ -4,7 +4,7 @@
 #   docker run --name py -it -d python:latest
 #   docker exec -it py bash
 #
-FROM centos:latest
+FROM centos:7
 #FROM 192.168.254.211:5000/centos
 MAINTAINER Thomas.Yang
 #RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-9.noarch.rpm && \
